@@ -49,18 +49,24 @@ public class Consumer implements Runnable{
 						int temp = Integer.MAX_VALUE;
 						@Override
 						public void run() {
-							List<Integer>list = map.get(s.getDocId());
-							if(list == null) {
-								list = new ArrayList<Integer>(k);
-							}
+							
+							
 							for(int i=0;i<minhashes.length;i++) {
+								List<Integer>list = map.get(s.getDocId());
 								int value = s.getHashCode() ^ minhashes[i];
-								if (value < temp) {
-									temp = value;
+								if(list == null) {
+									list = new ArrayList<Integer>(k);
+									for(int j=0;j<k;j++) {
+										list.add(Integer.MAX_VALUE);
+									}
+									map.put(s.getDocId(),list);
 								}
-							}
-							list.add(temp);
-							map.put(s.getDocId(),list);							
+								else {
+									if(list.get(i)>value) {
+										list.set(i, value);
+									}
+								}
+							}				
 						}
 					});
 				}
@@ -78,8 +84,7 @@ public class Consumer implements Runnable{
 		}
 		List<Integer> intersection = map.get(1);
 		intersection.retainAll(map.get(2));
-		System.out.println(k);
-		float jacquared = (float)intersection.size()/(k*2+(float)intersection.size());
+		float jacquared = (float)intersection.size()/(k*2-(float)intersection.size());
 		
 		System.out.println("J: " + jacquared);
 	}

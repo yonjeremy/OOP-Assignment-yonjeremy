@@ -90,7 +90,6 @@ public class DocumentParser implements Runnable{
 			}
 		}
 		q.put(new Shingle(docId,"0".toString().hashCode()));
-		System.out.println("0".toString().hashCode());
 	}
 	
 
