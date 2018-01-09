@@ -31,11 +31,13 @@ public class DocumentParser implements Runnable{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			String line = null;
 			while((line = br.readLine())!= null) {
-				String uLine = line.toUpperCase();
-				String [] words = uLine.split("\\s+");
-				addWordsToBuffer(words);
-				Shingle s = getNextShingle();
-				q.put(s);
+				if(line.length()>0) {
+					String uLine = line.toUpperCase();
+					String [] words = uLine.split("\\s+");
+					addWordsToBuffer(words);
+					Shingle s = getNextShingle();
+					q.put(s);
+				}
 			}
 		
 			br.close();
