@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,14 +17,14 @@ public class Consumer implements Runnable{
 	private BlockingQueue<Shingle> q;
 	private int k;
 	private int[] minhashes;
-	private ConcurrentHashMap<Integer,List<Integer>> map = new ConcurrentHashMap<Integer, List<Integer>>();
+	private ConcurrentMap<Integer,List<Integer>> map = new ConcurrentHashMap<Integer, List<Integer>>();
 	private ExecutorService pool;
 
 
-	public Consumer(BlockingQueue<Shingle> q, int k, int poolSize) {
+	public Consumer(BlockingQueue<Shingle> q, int k) {
 		this.q = q;
 		this.k = k;
-		pool = Executors.newFixedThreadPool(poolSize);
+		pool = Executors.newFixedThreadPool(1000);
 		init();
 	}
 	
@@ -41,7 +42,7 @@ public class Consumer implements Runnable{
 			try {
 				Shingle s = q.take();
 				// when s.getHashCode returns a poison indicating EOF
-				if(s.getHashCode() !=48)
+				if(!(s instanceof Poison))
 				{
 					pool.execute(new Runnable() {
 						
@@ -61,7 +62,7 @@ public class Consumer implements Runnable{
 									}
 								}
 							} 
-//							map.put(s.getDocId(), list);			
+							map.put(s.getDocId(), list);			
 						}
 					});
 				}
