@@ -55,4 +55,8 @@ The program takes in two strings, one for each document name, as well as the k n
 * Select 1, then input the doc 1 name, doc 2 name, k and shingleSize
 * The program will then return the similarity in percentage.
 
+## github
+https://github.com/yonjeremy/OOP-Assignment-yonjeremy
+
+
 
