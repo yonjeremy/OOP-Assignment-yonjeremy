@@ -5,14 +5,22 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * @author yonjeremy
  * Launches the code by creating consumer and producer threads
  * 
- * @throws InterruptedException
+ * @author yonjeremy
  */
 public class Launcher {
 	
-	// method to launch threads
+	
+	/**
+	 * Method to launch threads.
+	 * 
+	 * @param doc1 The name of Document 1 (String) ending with txt.
+	 * @param doc2 The name of Document 2 (String)ending with txt.
+	 * @param k Integer of the k number
+	 * @param shingleSize Integer of the ShingleSize of one Shingle.
+	 * @throws InterruptedException If the Document Parser cannot read the document.
+	 */
 	public void launch(String doc1, String doc2, int k, int shingleSize) throws InterruptedException {
 		//declare all variables
 		BlockingQueue<Shingle> q  = new LinkedBlockingQueue<Shingle>(100);

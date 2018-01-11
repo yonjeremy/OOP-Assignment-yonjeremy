@@ -1,10 +1,9 @@
 package ie.gmit.sw;
 
 /**
- * @author yonjeremy
- * This class contains the main method to the whole project.
+ * Contains the main method to the whole project. It shows a Menu to the user.
  * 
- * @throws an interrupted exception
+ * @author yonjeremy
  */
 public class Runner {
 	public static void main(String[] args) throws InterruptedException {

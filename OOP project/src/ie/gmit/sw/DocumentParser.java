@@ -10,11 +10,10 @@ import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * @author yonjeremy
  * Class that takes in a document, reads it using a buffered reader, and breaks the lines into shingles,
  * then creates shingles based on shingleSize
  * 
- * @param String file, int shingleSize, int k, BlockingQueue<Shingle> q,int docId
+ * @author yonjeremy
  */
 public class DocumentParser implements Runnable{
 	// declare all variables
@@ -25,7 +24,15 @@ public class DocumentParser implements Runnable{
 	private Deque<String> buffer = new LinkedList<>();
 	private int docId;
 	
-	// constructor
+	/**
+	 * Constructor that creates a <code>DocumentParser</code> object. A DocumentParser contains a file name, shingleSize, k number, a blocking queue and a docId.
+	 * 
+	 * @param file String holding the name of a file.
+	 * @param shingleSize Integer that indicates the size of a <code>Shingle</code>
+	 * @param k Integer that indicates the k number
+	 * @param q A blocking queue that holds all the shingles
+	 * @param docId Integer that indicates the document ID.
+	 */
 	public DocumentParser(String file, int shingleSize, int k, BlockingQueue<Shingle> q,int docId) {
 		super();
 		this.file = file;
@@ -75,14 +82,23 @@ public class DocumentParser implements Runnable{
 		}
 	}
 	
-	// method to addWords to the buffer
+	/**
+	 * Method to addWords to the buffer
+	 * 
+	 * @param words is the array of words that has been sent to the method from the bufferReader
+	 */
 	private void addWordsToBuffer(String[] words) {
 		for (String s: words) {
 			buffer.add(s);
 		}
 	}
 	
-	// method to get the next shingle
+	
+	/**
+	 * Method to get the next shingle
+	 * 
+	 * @return A new Shingle object with the size of integer ShingleSize
+	 */
 	private Shingle getNextShingle() {
 		StringBuilder sb = new StringBuilder();
 		int counter = 0;
@@ -113,7 +129,11 @@ public class DocumentParser implements Runnable{
 		
 	}
 	
-	// flushes the buffer
+	/**
+	 * Flushes the buffer
+	 * 
+	 * @throws InterruptedException
+	 */
 	private void flushBuffer() throws InterruptedException{
 		// loops over buffer til 0
 		while(buffer.size() > 0) {
